@@ -1,0 +1,9 @@
+<div>
+  <h1>Input user name:</h1>
+  <input type="text" [(ngModel)]="userName">
+  <button (click)="search()">Search!</button>
+
+  <div *ngIf="response">
+    <img src="{{response.avatar_url}}" alt="">
+  </div>
+</div>
