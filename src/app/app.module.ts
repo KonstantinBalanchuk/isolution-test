@@ -9,7 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MainService } from './main.service';
-import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 const appRoutes: Routes = [
   { path: '', component: GithubApiComponent },
@@ -29,7 +32,9 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    FormsModule
+    ReactiveFormsModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]
