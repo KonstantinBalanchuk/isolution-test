@@ -1,18 +1,9 @@
-<!--<div>-->
-<!--  <h1>Input user name:</h1>-->
-<!--  <input type="text" [(ngModel)]="userName">-->
-<!--  <button (click)="search()">Search!</button>-->
-
-<!--  <div *ngIf="response">-->
-<!--    <img src="{{response.avatar_url}}" alt="">-->
-<!--  </div>-->
-<!--</div>-->
 <div class="heading">
   <h1>Search for Github users</h1>
 </div>
-<div class="container" *ngIf="!post; else forminfo" novalidate>
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
 
+<div class="container" novalidate>
+  <form [formGroup]="formGroup" class="form">
     <div class="comment">
       Github username may only contain alphanumeric characters or hyphens.
       Github username cannot have multiple consecutive hyphens.
@@ -26,21 +17,37 @@
     </mat-form-field>
 
     <div class="form-element">
-      <button mat-raised-button color="primary"
-                                type="submit"
-                                class="button"
-                                (click)="search()"
-                                [disabled]="!formGroup.valid">
-        Search</button>
+      <button
+        mat-raised-button color="primary"
+        type="submit"
+        class="button"
+        (click)="search()"
+        [disabled]="!formGroup.valid"
+      >
+        Search
+      </button>
     </div>
 
   </form>
 </div>
 
-<ng-template #forminfo>
-  <div class="container">
-    {{ response | json }}
-<!--    <p *ngFor="let item of response.items">{{ item | json }}</p>-->
-<!--    {{response.items}}-->
+<div>
+  <table class="table table-dark">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of userList" (click)="userInfo(user.id)">
+      <td>{{ user.id }}</td>
+      <td>{{ user.login }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="paginBlock">
+    <span [ngClass]="{'p-number_active': (item + 1) === currentPageNumber, 'p-number': true}"  *ngFor="let item of numberOfpages" (click)="changeParams(item + 1)">{{item + 1}}</span>
   </div>
-</ng-template>
+</div>

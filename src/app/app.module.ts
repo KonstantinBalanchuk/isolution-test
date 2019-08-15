@@ -15,8 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 const appRoutes: Routes = [
-  { path: '', component: GithubApiComponent },
-  { path: 'user', component: UserComponent },
+  { path: '',   redirectTo: '/search', pathMatch: 'full' },
+  { path: 'user/:id', component: UserComponent },
+  { path: 'search', component: GithubApiComponent },
   { path: '**', component: NotfoundComponent }
 ];
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -99,8 +99,9 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule,
-  ]
+    MatStepperModule
+  ],
+  declarations: []
 })
 
 export class MaterialModule {}

@@ -1,3 +1,4 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap';
 
 .example-form {
   min-width: 150px;
@@ -49,4 +50,26 @@ div.heading {
 
 .button {
   width: 100%;
+}
+
+.paginBlock {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.p-number {
+  &:hover {
+    color: aqua;
+  }
+
+  &_active {
+    color: aqua;
+  }
+
+  cursor: pointer;
+  color: #323232;
+  font-size: 18px;
+  margin: 0 3px;
 }

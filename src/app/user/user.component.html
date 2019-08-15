@@ -1,1 +1,15 @@
-<p>User from github</p>
+<div><a routerLink="/search" routerLinkActive="active">Back</a></div>
+<div *ngIf="user; else loading">
+  <img src="{{user.avatar_url}}" alt="avatar">
+  <p><span>ID:</span>{{user.id}}</p>
+  <p><span>NAME:</span>{{user.login}}</p>
+  <p><span>REPOS:</span>{{reposCount}}</p>
+<!--  <p><span>Github url:</span>{{user.url}}</p>-->
+  <a href="{{user.html_url}}">Github url</a>
+  <p>User from github</p>
+</div>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>
+

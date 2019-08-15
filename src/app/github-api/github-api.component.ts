@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-github-api',
@@ -9,17 +10,31 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 
 export class GithubApiComponent implements OnInit {
+  currentPageNumber: number = 1;
+  itemsPerPage: number = 100;
+  maxPages: number = 1000 / this.itemsPerPage; // Only the first 1000 search results are available
+  url: string = 'https://api.github.com/search/users?q=';
+  numberOfpages: Array<number>;
+  userList: Array<object>;
   userName: string = '';
   response: any;
-  post: any = '';
   formGroup: FormGroup;
   validAlert: string = 'Invalid username. Please read the comment above';
-  constructor(private http: HttpClient, private formBuilder: FormBuilder ) {
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    console.log('text');
     this.createForm();
+    this.route.queryParams.subscribe(params => {
+      if (params.query) {
+        this.currentPageNumber = Number(params.page);
+        this.name.setValue(params.query);
+        this.search(params.page);
+      }
+    });
   }
 
   createForm() {
@@ -33,18 +48,41 @@ export class GithubApiComponent implements OnInit {
     return this.formGroup.get('name') as FormControl;
   }
 
-  onSubmit(post) {
-      this.post = post;
+  userInfo(id) {
+    this.router.navigate(['/user', id]);
   }
 
-  search() {
+  changeParams(pageNumber) {
+    this.router.navigate([], {
+      queryParams: {
+        page: pageNumber
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  search(pageNumber = 1) {
     this.userName = this.name.value;
-    this.http.get(' https://api.github.com/search/users?q=' + this.userName)
+    const url = this.url + this.userName + '&page=' + pageNumber + '&per_page=' + this.itemsPerPage;
+    this.http.get(url)
       .subscribe((response) => {
         this.response = response;
-        // console.log(JSON.stringify(response['items']));
-
-        console.log(this.response);
-        console.log(this.userName);
-      }); }
+        const result = this.response.items.map(x => ({
+            id: x.id,
+            login: x.login
+          })
+        );
+        console.log(this.response.total_count);
+        this.userList = result;
+        const allAvailablePages = Array.from(Array(Math.round(this.response.total_count / this.itemsPerPage)).keys());
+        this.numberOfpages = allAvailablePages.slice(0, this.maxPages);
+        console.log(this.numberOfpages);
+      });
+    this.router.navigate([], {
+      queryParams: {
+        query: this.userName
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
 }
