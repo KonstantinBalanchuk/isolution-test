@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-github-api',
-  templateUrl: './github-api.component.html',
+  templateUrl: './search.component.html',
   styleUrls: ['./github-api.component.scss']
 })
 
@@ -26,7 +26,6 @@ export class GithubApiComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('text');
     this.createForm();
     this.route.queryParams.subscribe(params => {
       if (params.query) {
@@ -72,11 +71,9 @@ export class GithubApiComponent implements OnInit {
             login: x.login
           })
         );
-        console.log(this.response.total_count);
         this.userList = result;
         const allAvailablePages = Array.from(Array(Math.round(this.response.total_count / this.itemsPerPage)).keys());
         this.numberOfpages = allAvailablePages.slice(0, this.maxPages);
-        console.log(this.numberOfpages);
       });
     this.router.navigate([], {
       queryParams: {

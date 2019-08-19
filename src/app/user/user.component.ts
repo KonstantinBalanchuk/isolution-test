@@ -18,7 +18,7 @@ export class UserComponent implements OnInit {
     this.http.get('https://api.github.com/user/' + id)
       .subscribe((userData: object) => {
         this.user = userData;
-        console.log(this.user);
+        // @ts-ignore
         this.fetchRepos(this.user.login);
       });
   }
