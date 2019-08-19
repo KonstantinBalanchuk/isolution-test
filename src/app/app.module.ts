@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GithubApiComponent } from './github-api/github-api.component';
+import { SearchComponent } from './search-component/search.component';
 import { HttpClientModule } from '@angular/common/http';
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './user-component/user.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MainService } from './main.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    GithubApiComponent,
+    SearchComponent,
     UserComponent,
     NotfoundComponent
   ],

@@ -4,12 +4,12 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-github-api',
+  selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./github-api.component.scss']
+  styleUrls: ['./search.component.scss']
 })
 
-export class GithubApiComponent implements OnInit {
+export class SearchComponent implements OnInit {
   currentPageNumber: number = 1;
   itemsPerPage: number = 100;
   maxPages: number = 1000 / this.itemsPerPage; // Only the first 1000 search results are available
